@@ -41,6 +41,25 @@ defmodule Portal do
   end
 
   @doc """
+  Pushes data to the right in the given `portal`
+  """
+  def push_right(portal) do
+    Portal.push(portal, :right)
+
+    portal
+  end
+
+  @doc """
+  Pushes data to the left in the given `portal`
+  """
+  def push_left(portal) do
+    Portal.push(portal, :left)
+
+    portal
+  end
+
+
+  @doc """
   Private method for switching the directions around when pushing between portals
   """
   defp opposite_direction(direction) do

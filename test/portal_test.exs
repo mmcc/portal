@@ -38,8 +38,10 @@ defmodule PortalTest do
 
     assert Portal.Door.get(:z) == [4,3,2,1]
     assert Portal.Door.get(:y) == []
+
     Portal.push_right(portal)
-    Portal.push_right(portal)
+    |> Portal.push_right
+
     assert Portal.Door.get(:z) == [2,1]
     assert Portal.Door.get(:y) == [3,4]
     Portal.push_left(portal)

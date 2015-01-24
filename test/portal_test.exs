@@ -19,15 +19,31 @@ defmodule PortalTest do
     assert portal.right == :blue
   end
 
-  test "Push data between portals" do
+  test "Push data to the portal on the right" do
     Portal.shoot(:magenta)
     Portal.shoot(:macaroni)
     portal = Portal.transfer(:magenta, :macaroni, [1,2,3,4])
 
     assert Portal.Door.get(:magenta) == [4,3,2,1]
     assert Portal.Door.get(:macaroni) == []
-    Portal.push(portal, :right)
+    Portal.push_right(portal)
     assert Portal.Door.get(:magenta) == [3,2,1]
     assert Portal.Door.get(:macaroni) == [4]
+  end
+
+  test "Push data to the portal on the left" do
+    Portal.shoot(:z)
+    Portal.shoot(:y)
+    portal = Portal.transfer(:z, :y, [1,2,3,4])
+
+    assert Portal.Door.get(:z) == [4,3,2,1]
+    assert Portal.Door.get(:y) == []
+    Portal.push_right(portal)
+    Portal.push_right(portal)
+    assert Portal.Door.get(:z) == [2,1]
+    assert Portal.Door.get(:y) == [3,4]
+    Portal.push_left(portal)
+    assert Portal.Door.get(:z) == [3,2,1]
+    assert Portal.Door.get(:y) == [4]
   end
 end
